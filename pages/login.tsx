@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input, Col, Row, Layout, Space } from 'antd';
+import { Button, Checkbox, Form, Input, Col, Row, Radio, RadioChangeEvent } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 const onFinish = (values: any) => {
   console.log('Success:', values);
@@ -9,54 +10,89 @@ const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo);
 };
 
-const App: React.FC = () => (
-  <div>
-    <Row justify="center">
-      <Col md={8} sm={24}>
-        <Row justify="center">
+const options = [
+  { label: 'Student', value: 'Student' },
+  { label: 'Teacher', value: 'Teacher' },
+  { label: 'Manager', value: 'Manager' },
+];
+
+// const Login: React.FC = () => ()
+const Login = () => {
+  const [role, setRole] = React.useState('Student');
+  const onChange = ({ target: { value } }: RadioChangeEvent) => {
+    console.log('radio checked', value);
+    setRole(value);
+  };
+  return (
+    <div>
+      <Row justify="center">
+        <Col md={12} sm={20}>
           <p className="login-heading">Course Management</p>
-        </Row>
-        <Row justify="center">
+
           <Form
             name="basic"
-            // labelCol={{ span: 8 }}
-            // wrapperCol={{ span: 16 }}
-            style={{ maxWidth: 600 }}
+            labelCol={{ span: 24 }}
+            style={{ maxWidth: 400 }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
           >
             <Form.Item
-              label="Username"
-              name="username"
-              rules={[{ required: true, message: 'Please input your username!' }]}
+              name="role"
+              initialValue={role}
+              rules={[
+                {
+                  required: true,
+                  message: 'Please choose your role !',
+                },
+              ]}
             >
-              <Input />
+              <Radio.Group options={options} onChange={onChange} value={role} optionType="button" />
             </Form.Item>
 
             <Form.Item
-              label="Password"
-              name="password"
-              rules={[{ required: true, message: 'Please input your password!' }]}
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please enter a valid email address',
+                },
+                {
+                  type: 'email',
+                },
+              ]}
             >
-              <Input.Password />
+              <Input prefix={<UserOutlined />} placeholder="xxx@admin.com" type="email" />
             </Form.Item>
 
-            <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+            <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your Password!',
+                },
+                { min: 4, max: 16 },
+              ]}
+            >
+              <Input prefix={<LockOutlined />} type="password" placeholder="Password" />
+            </Form.Item>
+
+            <Form.Item name="remember" valuePropName="checked">
               <Checkbox>Remember me</Checkbox>
             </Form.Item>
 
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-              <Button type="primary" htmlType="submit">
-                Submit
+            <Form.Item>
+              <Button block type="primary" htmlType="submit">
+                Log In
               </Button>
             </Form.Item>
           </Form>
-        </Row>
-      </Col>
-    </Row>
-  </div>
-);
+        </Col>
+      </Row>
+    </div>
+  );
+};
 
-export default App;
+export default Login;
