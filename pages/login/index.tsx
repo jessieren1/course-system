@@ -2,6 +2,8 @@ import React from 'react';
 import { Button, Checkbox, Form, Input, Col, Row, Radio, RadioChangeEvent } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
+interface FormProps {}
+
 const onFinish = (values: any) => {
   console.log('Success:', values);
 };
@@ -78,7 +80,7 @@ const Login = () => {
                     required: true,
                     message: 'Please input your Password!',
                   },
-                  { min: 4, max: 16 },
+                  { min: 6 },
                 ]}
               >
                 <Input prefix={<LockOutlined />} type="password" placeholder="Password" />
