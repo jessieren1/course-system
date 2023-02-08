@@ -17,7 +17,7 @@ export default function Home() {
       <div>
         <p>
           Get started by editing&nbsp;
-          <code className="code">pages/index.tsx</code>
+          <code>pages/index.tsx</code>
         </p>
         <div>
           <Link href={'./login'}>

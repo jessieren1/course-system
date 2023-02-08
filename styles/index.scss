@@ -1,11 +1,8 @@
 //config
-@import "variables";
+@import 'variables';
 
 //layout
-@import "reboot";
-
-//Home Page
-@import "./pages/home";
+@import 'reboot';
 
 ////Login Page
-@import "./pages/login";
+@import './../pages/login/login';
